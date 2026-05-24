@@ -1,0 +1,15 @@
+html, body {
+	font-family: sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+	html, body {
+		background-color: #222;
+		color: #fff;
+	}
+	a {
+		color: lightblue;
+	}
+	a:visited {
+		color: pink;
+	}
+}

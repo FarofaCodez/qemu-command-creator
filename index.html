@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: MIT -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>QEMU Command Creator</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+	<h2>Motherboard</h2>
+	<label for="machine">Machine</label>
+	<select name="machine" id="machine">
+		<option value="q35" selected>Q35 (modern)</option>
+		<option value="pc">i440FX (legacy)</option>
+	</select>
+	<br><br>
+	<label for="ram">RAM</label>
+	<input type="number" name="ram" id="ram" min="1" value="1024"><span>MB</span>
+	<br><br>
+	<label for="accel">Acceleration</label>
+	<select name="accel" id="accel">
+		<option value="kvm" selected>KVM (Hardware-based, Linux hosts only)</option>
+		<option value="whpx">WHPX (Hardware-based, Windows hosts only)</option>
+		<option value="hvf">HVF (Hardware-based, macOS hosts only)</option>
+		<option value="tcg">TCG (Software-based, all hosts, slower)</option>
+	</select>
+	<br>
+	<a href="/help/accels.html">Help about accelerators</a>
+	<br><br>
+	<label for="cpu">CPU</label>
+	<select name="cpu" id="cpu">
+		<option value="host" selected>host: Host CPU (KVM only)</option>
+		<option value="max">max: Maximum CPU features available (not recommended)</option>
+		<option value="qemu64">qemu64: Fictional 64-bit CPU</option>
+		<option value="qemu32">qemu32: Fictional 32-bit CPU</option>
+		<option value="other" disabled>Other CPUs supported by QEMU will be added some day</option>
+	</select>
+	<br><br>
+	<label for="gpu">GPU</label>
+	<select name="gpu" id="gpu">
+		<option value="virtio-vga-gl" selected>virtio-vga-gl: Virtio VGA with OpenGL</option>
+		<option value="virtio-vga">virtio-vga: Virtio VGA (without OpenGL)</option>
+		<option value="qxl">qxl: QXL (for non-Linux operating systems)</option>
+		<option value="other" disabled>Other GPUs supported by QEMU may be added some day</option>
+	</select>
+	<h2>Storage</h2>
+	<div id="storageDrives">
+	</div>
+	<br>
+	<button onclick="newStorageDrive()">Add storage drive</button>
+	<h2>Extra devices</h2>
+	<div id="extraDevices">
+	</div>
+	<br><button onclick="extraDevices.push(prompt('Device name'));updateExtraDevices();">Add extra device</button>
+	<br><br>
+	<button onclick="createCommand()">Create command</button>
+	<br><br>
+	<textarea name="command" id="command" rows="24" cols="80" placeholder="The created command will appear here for you to copy"></textarea>
+	<script src="creator.js"></script>
+</body>
+</html>
