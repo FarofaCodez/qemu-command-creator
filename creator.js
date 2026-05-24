@@ -6,7 +6,7 @@ function valueof(id) {
 
 // This is the function that does everything
 function createCommand() {
-	let command = `qemu-system-x86_64 \
+	let command = `qemu-system-x86_64 -display gtk,gl=on \
 -accel ${valueof("accel")} \
 -M ${valueof("machine")} \
 -m ${valueof("ram")} \
