@@ -20,13 +20,24 @@ function valueof(id) {
 	return document.querySelector(`#${id}`).value;
 }
 
+function checkbox(id) {
+	const value = document.querySelector("#gl").checked;
+	if (value == true) {
+		return "on";
+	} else {
+		return "off";
+	}
+}
+
 function createCommand() {
-	let command = `qemu-system-x86_64 -display gtk,gl=on \
+	let command = `qemu-system-x86_64 \
 -accel ${valueof("accel")} \
 -M ${valueof("machine")} \
 -m ${valueof("ram")} \
 -cpu ${valueof("cpu")} \
--device ${valueof("gpu")}`
+-device ${valueof("gpu")} \
+-nic user,model=${valueof("nic")} \
+-display ${valueof("dBackend")},gl=${checkbox("gl")}`
 	const storage = document.querySelector("#storageDrives");
 	storage.childNodes.forEach(element => {
 		if (element.className == "storageDrive") {
@@ -44,40 +55,49 @@ function createCommand() {
 	document.querySelector("#command").innerText = command;
 }
 
-const storageDiv = document.querySelector("#storageDrives");
-const storageDriveTemplate = `
-		<div id="storageDrive<<<ID>>>" class="storageDrive">
-			<span>Storage drive <<<ID>>></span>
-			<br>
-			<label for="storagePath<<<ID>>>">File path</label>
-			<input type="text" name="storagePath<<<ID>>>" id="storagePath<<<ID>>>" class="storagePath">
-			<br>
-			<label for="storageInterface<<<ID>>>">Interface</label>
-			<select name="storageInterface<<<ID>>>" id="storageInterface<<<ID>>>" class="storageInterface">
-				<option value="virtio" selected>VirtIO (fast, requires special guest drivers)</option>
-				<option value="ide">IDE (slower, supported by most guests)</option>
-			</select>
-			
-			<br>
-		</div>
-`;
+class StorageDrive {
+	constructor() {
+		this.file = "";
+		this.if = "virtio";
+	}
+}
 
-let storageDrives = 0;
-
+const storageDrivesDiv = document.querySelector("#storageDrives");
+let storageDrives = [];
 function newStorageDrive() {
-	const storageDrive = storageDriveTemplate.replaceAll("<<<ID>>>", String(storageDrives));
-	storageDrives++;
-	storageDiv.innerHTML += storageDrive;
+	storageDrives.push(new StorageDrive());
+	updateStorageDrives();
 }
 newStorageDrive();
 
-function removeStorageDrive() {
-	const element = document.getElementById(`storageDrive${storageDrives - 1}`);
-	storageDrives--;
-	element.remove();
+function removeStorageDrive(drive) {
+	storageDrives.splice(drive, 1);
+	updateStorageDrives();
+}
+function updateStorageDrives() {
+	let i = 0;
+	storageDrivesDiv.innerHTML = "";
+	storageDrives.forEach((element) => {
+		storageDrivesDiv.innerHTML += `<div class="storageDrive">
+			<span>Storage drive</span>
+			<br>
+			<label>File path</label>
+			<input type="text" class="storagePath">
+			<br>
+			<label>Interface</label>
+			<select class="storageInterface">
+				<option value="virtio" selected>VirtIO (fast, requires special guest drivers)</option>
+				<option value="ide">IDE (slower, supported by most guests)</option>
+			</select>
+			<button onclick="removeStorageDrive(${i})">Remove drive</button>
+			<br><br>
+		</div>
+		`
+		i++;
+	});
 }
 
-let extraDevices = ["virtio-sound"];
+let extraDevices = [];
 const extraDevicesDiv = document.querySelector("#extraDevices");
 function updateExtraDevices() {
 	extraDevicesDiv.innerHTML = "";

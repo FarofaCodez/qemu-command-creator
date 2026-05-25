@@ -46,8 +46,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 		<option value="hvf">HVF (Hardware-based, macOS hosts only)</option>
 		<option value="tcg">TCG (Software-based, all hosts, slower)</option>
 	</select>
-	<br>
-	<a href="help/accels.html">Help about accelerators</a>
 	<br><br>
 
 	<label for="cpu">CPU</label>
@@ -58,15 +56,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 		<option value="qemu32">qemu32: Fictional 32-bit CPU</option>
 		<option value="other" disabled>Other CPUs supported by QEMU will be added some day</option>
 	</select>
+	<br>
+	<span>CPU flags</span>
+	<br>
+	<input type="checkbox" name="hvenlight" id="hvenlight">
+	<label for="hvenlight">Hyper-V Enlightments (recommended for Windows guests)</label>
+	<input type="checkbox" name="popcnt" id="popcnt">
+	<label for="popcnt">POPCNT</label>
+	<br>
+	<span>Flags that your host doesn't have will be emulated in software (slower)</span>
 	<br><br>
-
-	<label for="gpu">GPU</label>
-	<select name="gpu" id="gpu">
-		<option value="virtio-vga-gl" selected>virtio-vga-gl: VirtIO VGA with OpenGL</option>
-		<option value="virtio-vga">virtio-vga: VirtIO VGA (without OpenGL)</option>
-		<option value="qxl">qxl: QXL (for non-Linux guests)</option>
-		<option value="other" disabled>Other GPUs supported by QEMU may be added some day</option>
-	</select>
 
 	<h2>Storage</h2>
 	<div id="storageDrives">
@@ -74,10 +73,43 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	<br>
 	<button onclick="newStorageDrive()">Add storage drive</button>
 
+	<h2>Network</h2>
+	<label for="nic">Network card model</label>
+	<select name="nic" id="nic">
+		<option value="virtio-net-pci" selected>virtio-net-pci: VirtIO network card connected by PCI (faster)</option>
+		<option disabled>Emulated cards (slower)</option>
+		<option value="e1000">e1000: Intel E1000</option>
+		<option value="e1000e">e1000e: Intel E1000E</option>
+		<option value="igb">igb: Intel Gigabit Ethernet</option>
+	</select>
+
+	<h2>Display</h2>
+	<label for="gpu">GPU</label>
+	<select name="gpu" id="gpu">
+		<option value="virtio-vga-gl" selected>virtio-vga-gl: VirtIO VGA with OpenGL</option>
+		<option value="virtio-vga">virtio-vga: VirtIO VGA (without OpenGL)</option>
+		<option value="qxl">qxl: QXL (for non-Linux guests)</option>
+		<option value="other" disabled>Other GPUs supported by QEMU may be added some day</option>
+	</select>
+	<br><br>
+
+	<label for="dBackend">Display backend</label>
+	<select name="dBackend" id="dBackend">
+		<option value="gtk">GTK</option>
+		<option value="sdl">SDL</option>
+	</select>
+	<br>
+	<span>There is no performance difference between the GTK and SDL backends</span>
+	<br><br>
+
+	<input type="checkbox" name="gl" id="gl" checked>
+	<label for="gl">OpenGL support (required for VirtIO VGA with OpenGL)</label>
+
 	<h2>Extra devices</h2>
 	<div id="extraDevices">
 	</div>
 	<br><button onclick="extraDevices.push(prompt('Device name'));updateExtraDevices();">Add extra device</button>
+	<button onclick="['virtio-sound', 'virtio-rng', 'virtio-tablet'].forEach((value)=>{extraDevices.push(value);});updateExtraDevices();">Add useful VirtIO devices</button>
 	<br><br>
 	<button onclick="createCommand()">Create command</button>
 	<br><br>

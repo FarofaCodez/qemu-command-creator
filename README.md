@@ -9,12 +9,6 @@ TODO List:
 
   - Maybe with checkboxes to toggle their presence
 
-- Other devices (particularly CPU and GPU) supported by QEMU
-
-- More convenient storage system
-
-  - Right now it requires removing the last drive in the list
+- Other devices (particularly CPUs and GPUs) supported by QEMU
 
 - Put stuff in separate JavaScript files instead of one giant `creator.js`
-
-- CPU flags
