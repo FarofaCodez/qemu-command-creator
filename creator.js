@@ -21,7 +21,7 @@ function valueof(id) {
 }
 
 function checkbox(id) {
-	const value = document.querySelector("#gl").checked;
+	const value = document.querySelector(id).checked;
 	if (value == true) {
 		return "on";
 	} else {
