@@ -1,22 +1,20 @@
 # QEMU Command Creator
 Create commands for QEMU's x86_64 emulator
 
+Code licensed under the GPLv3 with a CC-BY 4.0 external link icon from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg)  
+
 TODO List:
 
-- [ ] Help page for storage
-
-- [ ] Help page for devices
-
-- [ ] More devices in the motherboard section
+- More devices in the motherboard section
 
   - Maybe with checkboxes to toggle their presence
 
-- [ ] Other CPUs supported by QEMU
+- Other devices (particularly CPU and GPU) supported by QEMU
 
-- [ ] Other GPUs supported by QEMU
-
-- [ ] More convenient storage system
+- More convenient storage system
 
   - Right now it requires removing the last drive in the list
 
-- [ ] Put stuff in separate JavaScript files instead of one giant `creator.js`
+- Put stuff in separate JavaScript files instead of one giant `creator.js`
+
+- CPU flags

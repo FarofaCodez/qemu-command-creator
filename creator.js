@@ -1,10 +1,25 @@
-// SPDX-License-Identifier: MIT
+/*
+QEMU Command Creator
+Copyright (C) 2026  Farofa Playz <FarofaCodez>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 function valueof(id) {
 	return document.querySelector(`#${id}`).value;
 }
 
-// This is the function that does everything
 function createCommand() {
 	let command = `qemu-system-x86_64 -display gtk,gl=on \
 -accel ${valueof("accel")} \
@@ -40,7 +55,7 @@ const storageDriveTemplate = `
 			<label for="storageInterface<<<ID>>>">Interface</label>
 			<select name="storageInterface<<<ID>>>" id="storageInterface<<<ID>>>" class="storageInterface">
 				<option value="virtio" selected>VirtIO (fast, requires special guest drivers)</option>
-				<option value="ide">IDE (slower, supported by most OSes)</option>
+				<option value="ide">IDE (slower, supported by most guests)</option>
 			</select>
 			
 			<br>

@@ -25,8 +25,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	<link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
 </head>
 <body>
-	<p>Accelerators are (mostly) OS-dependent systems used to run instructions directly on your host CPU</p>
-	<p>The software-based accelerator (only TCG is one of them) is very slow due to having to translate everything on the fly</p>
-	<p>Hardware-based accelerators are much faster due to running everything on the host CPU but differ between host operating systems and require special CPU support</p>
+	<p>VirtIO is a parvirtualized interface, which basically means that it's faster when the guest supports it</p>
+	<p>But for Windows guests specifically, it doesn't have VirtIO drivers by default, so you need to install them using either</p>
+	<p><a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/">The official disk image from Fedora People</a></p>
+	<p><a href="https://github.com/qemus/virtiso/releases">or the unofficial but smaller disk image from the QEMU Docker project</a></p>
 </body>
 </html>
